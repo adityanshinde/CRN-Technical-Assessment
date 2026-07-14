@@ -1,6 +1,8 @@
 using System.Reflection;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
+using ProductApi.Application.Interfaces;
+using ProductApi.Application.Services;
 
 namespace ProductApi.Application.Extensions;
 
@@ -10,6 +12,10 @@ public static class ServiceCollectionExtensions
     {
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+
+        // Register application services
+        services.AddScoped<IProductService, ProductService>();
+        services.AddScoped<IItemService, ItemService>();
 
         return services;
     }

@@ -16,6 +16,7 @@ public static class ServiceCollectionExtensions
         // Register application services
         services.AddScoped<IProductService, ProductService>();
         services.AddScoped<IItemService, ItemService>();
+        services.AddScoped<IUserService, UserService>();
 
         return services;
     }

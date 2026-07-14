@@ -34,8 +34,10 @@ public static class AuthExtensions
 
         services.AddAuthorization();
 
-        // Register JWT token service
-        services.AddScoped<IJwtTokenService, JwtTokenService>();
+        // Register JWT token service — use Application interface for cross-layer resolution
+        services.AddScoped<Infrastructure.Identity.IJwtTokenService, JwtTokenService>();
+        services.AddScoped<Application.Interfaces.IJwtTokenService>(sp =>
+            sp.GetRequiredService<Infrastructure.Identity.IJwtTokenService>());
 
         return services;
     }

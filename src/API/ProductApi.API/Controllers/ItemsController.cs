@@ -8,7 +8,7 @@ namespace ProductApi.API.Controllers;
 
 [ApiController]
 [ApiVersion("1.0")]
-[Route("api/v{version:apiVersion}/items")]
+[Route("api/v1/items")]
 public class ItemsController : ControllerBase
 {
     private readonly IItemService _itemService;

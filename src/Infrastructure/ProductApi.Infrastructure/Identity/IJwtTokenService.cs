@@ -1,7 +1,5 @@
-namespace ProductApi.Infrastructure.Identity;
-
-public interface IJwtTokenService
+// Re-export from Application layer
+namespace ProductApi.Infrastructure.Identity
 {
-    string GenerateAccessToken(string userId, string[] roles);
-    string GenerateRefreshToken();
+    public interface IJwtTokenService : Application.Interfaces.IJwtTokenService { }
 }

@@ -23,14 +23,10 @@ public class ProductsController : ControllerBase
     /// </summary>
     [HttpGet]
     public async Task<ActionResult<PagedResult<ProductDto>>> GetProducts(
-        [FromQuery] int pageNumber = 1,
-        [FromQuery] int pageSize = 10,
+        [FromQuery] PaginationParams pagination,
         CancellationToken cancellationToken = default)
     {
-        pageNumber = Math.Max(1, pageNumber);
-        pageSize = Math.Clamp(pageSize, 1, 100);
-
-        var result = await _productService.GetProductsAsync(pageNumber, pageSize, cancellationToken);
+        var result = await _productService.GetProductsAsync(pagination.PageNumber, pagination.PageSize, cancellationToken);
         return Ok(result);
     }
 
@@ -91,14 +87,10 @@ public class ProductsController : ControllerBase
     [HttpGet("{id:guid}/items")]
     public async Task<ActionResult<PagedResult<ItemDto>>> GetProductItems(
         Guid id,
-        [FromQuery] int pageNumber = 1,
-        [FromQuery] int pageSize = 10,
+        [FromQuery] PaginationParams pagination,
         CancellationToken cancellationToken = default)
     {
-        pageNumber = Math.Max(1, pageNumber);
-        pageSize = Math.Clamp(pageSize, 1, 100);
-
-        var result = await _productService.GetProductItemsAsync(id, pageNumber, pageSize, cancellationToken);
+        var result = await _productService.GetProductItemsAsync(id, pagination.PageNumber, pagination.PageSize, cancellationToken);
         return Ok(result);
     }
 }

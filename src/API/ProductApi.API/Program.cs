@@ -1,4 +1,5 @@
 using ProductApi.API.Extensions;
+using ProductApi.Infrastructure.Data;
 using ProductApi.Infrastructure.Extensions;
 using Serilog;
 
@@ -28,6 +29,14 @@ try
     builder.Services.AddApiLayer(builder.Configuration);
 
     var app = builder.Build();
+
+    // Auto-create database in development (for SQLite fallback or first-run)
+    if (app.Environment.IsDevelopment())
+    {
+        using var scope = app.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+        db.Database.EnsureCreated();
+    }
 
     // Configure middleware pipeline
     app.UseApiLayer();

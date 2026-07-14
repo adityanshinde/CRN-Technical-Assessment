@@ -12,10 +12,27 @@ public static class ServiceCollectionExtensions
         this IServiceCollection services,
         IConfiguration configuration)
     {
-        services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlServer(
-                configuration.GetConnectionString("DefaultConnection"),
-                b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
+        var provider = configuration["DatabaseProvider"] ?? "SqlServer";
+
+        if (provider.Equals("Sqlite", StringComparison.OrdinalIgnoreCase))
+        {
+            var connectionString = configuration.GetConnectionString("SqliteConnection")
+                ?? "Data Source=ProductApi.db";
+            var migrationsAssembly = typeof(ServiceCollectionExtensions).Assembly.FullName;
+
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlite(connectionString, b =>
+                    b.MigrationsAssembly(migrationsAssembly)));
+        }
+        else
+        {
+            var connectionString = configuration.GetConnectionString("DefaultConnection")
+                ?? throw new InvalidOperationException("Connection string 'DefaultConnection' is required for SQL Server.");
+
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(connectionString, b =>
+                    b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
+        }
 
         // Register repositories and UnitOfWork
         services.AddScoped(typeof(Application.Interfaces.IRepository<>), typeof(Repository<>));

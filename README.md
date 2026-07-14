@@ -5,7 +5,7 @@ RESTful ASP.NET Core Web API for managing Products and Items with full CRUD oper
 ## Tech Stack
 
 - **.NET 8** — ASP.NET Core Web API
-- **Entity Framework Core 8** — Code-First with SQL Server
+- **Entity Framework Core 8** — Code-First with SQL Server or SQLite fallback
 - **Clean Architecture** — Domain → Application → Infrastructure → API
 - **JWT Bearer** — Access + Refresh token authentication
 - **FluentValidation** — Request validation
@@ -37,6 +37,16 @@ ProductApi.sln
 - SQL Server (local instance or Docker container)
 
 ## Running Locally
+
+### Option 0: Quick Start (SQLite — no dependencies)
+
+```bash
+dotnet run --project src/API/ProductApi.API
+```
+
+The app will auto-create a SQLite database file (`ProductApi.db`) and start on `http://localhost:5237`. Open [http://localhost:5237/swagger](http://localhost:5237/swagger) to explore the API.
+
+To switch to SQL Server, set `"DatabaseProvider": "SqlServer"` in `appsettings.json`.
 
 ### Option 1: Local SQL Server
 

@@ -1,9 +1,8 @@
-using ProductApi.Domain.Entities;
+// This interface has moved to Application/Interfaces/IProductRepository.cs
+// Keep this file as a re-export for convenience.
+using ProductApi.Application.Interfaces;
 
-namespace ProductApi.Infrastructure.Data.Repositories;
-
-public interface IProductRepository : IRepository<Product>
+namespace ProductApi.Infrastructure.Data.Repositories
 {
-    Task<Product?> GetWithItemsAsync(Guid id, CancellationToken cancellationToken = default);
-    Task<IReadOnlyList<Product>> GetPagedWithItemsAsync(int pageNumber, int pageSize, CancellationToken cancellationToken = default);
+    public interface IProductRepository : Application.Interfaces.IProductRepository { }
 }

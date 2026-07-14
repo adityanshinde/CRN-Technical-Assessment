@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using ProductApi.Application.Interfaces;
 using ProductApi.Domain.Entities;
 
 namespace ProductApi.Infrastructure.Data.Repositories;

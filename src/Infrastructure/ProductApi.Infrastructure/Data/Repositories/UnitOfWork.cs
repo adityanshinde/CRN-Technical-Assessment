@@ -1,22 +1,23 @@
+using ProductApi.Application.Interfaces;
 using ProductApi.Domain.Entities;
 
 namespace ProductApi.Infrastructure.Data.Repositories;
 
-public class UnitOfWork : IUnitOfWork
+public class UnitOfWork : Application.Interfaces.IUnitOfWork
 {
     private readonly ApplicationDbContext _dbContext;
-    private IProductRepository? _products;
-    private IRepository<Item>? _items;
+    private Application.Interfaces.IProductRepository? _products;
+    private Application.Interfaces.IRepository<Item>? _items;
 
     public UnitOfWork(ApplicationDbContext dbContext)
     {
         _dbContext = dbContext;
     }
 
-    public IProductRepository Products =>
+    public Application.Interfaces.IProductRepository Products =>
         _products ??= new ProductRepository(_dbContext);
 
-    public IRepository<Item> Items =>
+    public Application.Interfaces.IRepository<Item> Items =>
         _items ??= new Repository<Item>(_dbContext);
 
     public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

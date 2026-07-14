@@ -1,16 +1,8 @@
-using System.Linq.Expressions;
+// This interface has moved to Application/Interfaces/IRepository.cs
+// Keep this file as a re-export for convenience.
+using ProductApi.Application.Interfaces;
 
-namespace ProductApi.Infrastructure.Data.Repositories;
-
-public interface IRepository<T> where T : class
+namespace ProductApi.Infrastructure.Data.Repositories
 {
-    Task<T?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
-    Task<IReadOnlyList<T>> GetAllAsync(CancellationToken cancellationToken = default);
-    Task<IReadOnlyList<T>> GetPagedAsync(int pageNumber, int pageSize, CancellationToken cancellationToken = default);
-    Task<T> AddAsync(T entity, CancellationToken cancellationToken = default);
-    Task UpdateAsync(T entity, CancellationToken cancellationToken = default);
-    Task DeleteAsync(T entity, CancellationToken cancellationToken = default);
-    Task<int> CountAsync(CancellationToken cancellationToken = default);
-    Task<bool> ExistsAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken = default);
-    IQueryable<T> GetQueryable();
+    public interface IRepository<T> : Application.Interfaces.IRepository<T> where T : class { }
 }

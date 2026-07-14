@@ -1,5 +1,6 @@
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
+using ProductApi.Application.Interfaces;
 using ProductApi.Infrastructure.Data;
 
 namespace ProductApi.Infrastructure.Data.Repositories;

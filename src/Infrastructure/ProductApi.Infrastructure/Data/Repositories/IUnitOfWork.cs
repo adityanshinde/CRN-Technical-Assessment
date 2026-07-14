@@ -1,11 +1,7 @@
-namespace ProductApi.Infrastructure.Data.Repositories;
+// This interface has moved to Application/Interfaces/IUnitOfWork.cs
+using ProductApi.Application.Interfaces;
 
-public interface IUnitOfWork : IDisposable
+namespace ProductApi.Infrastructure.Data.Repositories
 {
-    IProductRepository Products { get; }
-    IRepository<Domain.Entities.Item> Items { get; }
-    Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
-    Task BeginTransactionAsync(CancellationToken cancellationToken = default);
-    Task CommitTransactionAsync(CancellationToken cancellationToken = default);
-    Task RollbackTransactionAsync(CancellationToken cancellationToken = default);
+    public interface IUnitOfWork : Application.Interfaces.IUnitOfWork { }
 }
